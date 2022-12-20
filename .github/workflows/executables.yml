@@ -40,6 +40,3 @@ jobs:
             build/*.exe
             build/*.bin
             build/*.app/**/*
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/*.exe,build/*.bin,build/*.app/**/*"
