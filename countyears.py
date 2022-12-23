@@ -87,6 +87,7 @@ if __name__ == "__main__":
 	totalCount = len(entries)
 
 	try:
+		# Count Years
 		maxyear = 0
 		for item in entries:
 			if 'year' in item:
@@ -95,10 +96,13 @@ if __name__ == "__main__":
 					maxyear = int(item['year'])
 		minyear = maxyear
 		
+		typelist = {}
 		for item in entries:	
 			if 'year' in item:
 				if int(item["year"]) < minyear:
 					minyear = int(item["year"])
+			if 'type_of_reference' in item:
+				typelist[item['type_of_reference']] = 0
 
 		print("Max Year:", str(maxyear))
 		print("Min Year:", str(minyear))
@@ -109,7 +113,8 @@ if __name__ == "__main__":
 			yearlist[current] = 0
 			current +=1
 
-		itemswithoutyear = 0
+		itemswithoutyear: int = 0
+		itemswithouttype: int = 0
 		for item in entries:
 			for year in yearlist:
 				if "year" in item:
@@ -117,9 +122,19 @@ if __name__ == "__main__":
 						yearlist[year] +=1
 				else:
 					itemswithoutyear +=1
+			for type in typelist:
+				if "type_of_reference" in item:
+					if item["type_of_reference"] == type:
+						typelist[type] +=1
+				else:
+					itemswithouttype +=1
+
 	except Exception as ex:
 		printerror("An error occured: " + str(ex))
+		printerror(traceback.format_exc())
 
-	print(yearlist)
+	print("Years: " + str(yearlist))
+	print("Document types: " + str(typelist))
 	print("Items without year:", itemswithoutyear)
+	print("Items without document type:" , itemswithouttype)
 	input("Press any key to exit.")
