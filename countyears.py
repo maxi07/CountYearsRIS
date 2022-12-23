@@ -102,7 +102,7 @@ if __name__ == "__main__":
 				if int(item["year"]) < minyear:
 					minyear = int(item["year"])
 			if 'type_of_reference' in item:
-				typelist[item['type_of_reference']] = 0
+				typelist[str(item['type_of_reference']).lower()] = 0
 
 		print("Max Year:", str(maxyear))
 		print("Min Year:", str(minyear))
@@ -124,8 +124,8 @@ if __name__ == "__main__":
 					itemswithoutyear +=1
 			for type in typelist:
 				if "type_of_reference" in item:
-					if item["type_of_reference"] == type:
-						typelist[type] +=1
+					if str(item["type_of_reference"]).lower() == str(type).lower():
+						typelist[str(type).lower()] +=1
 				else:
 					itemswithouttype +=1
 
